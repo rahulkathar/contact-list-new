@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col d-flex justify-content-lg-between">
+        <h1 mat-dialog-title>Contact {{action}}</h1>
+        <a mat-dialog-close>
+            <mat-icon class="">close</mat-icon>
+        </a>
+    </div>
+</div>
+<form [formGroup]="addContactForm">
+    <div *ngIf="action != 'Delete'; else elseTemplate">
+        <div mat-dialog-content class="w-100">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>First Name *</mat-label>
+                <input matInput placeholder="Enter the contact first name here" formControlName="firstName" [(ngModel)]="local_data.firstName">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error>First name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Last Name *</mat-label>
+                <input matInput placeholder="Enter the contact last name here" formControlName="lastName" [(ngModel)]="local_data.lastName">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error>Last name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Email *</mat-label>
+                <input matInput placeholder="e.g: user@domain.com" formControlName="email" [(ngModel)]="local_data.email">
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-error>Email is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Phone Number *</mat-label>
+                <input matInput placeholder="e.g: 9823810415" formControlName="phoneNo" [(ngModel)]="local_data.phoneNo">
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-error>Phone Number is required</mat-error>
+            </mat-form-field>
+            <mat-slide-toggle formControlName="status" [(ngModel)]="local_data.status">Active</mat-slide-toggle>
+        </div>
+    </div>
+    <ng-template #elseTemplate>
+        Sure to delete <strong>{{local_data.firstName}} {{local_data.lastName}}</strong>?
+    </ng-template>
+    <div mat-dialog-actions>
+        <button class="w-100" color="accent" mat-stroked-button [mat-dialog-close]="true" cdkFocusInitial (click)="doAction()">{{action}}</button>
+    </div>
+</form>
